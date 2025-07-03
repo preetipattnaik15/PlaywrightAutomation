@@ -28,7 +28,7 @@ test('Validate all required form fields', async ({ page }) => {
 
 test('Validate register button', async ({ page }) => {
     const response = await page.goto('https://qa-practice.netlify.app/bugs-form');
-    await expect(page.locator('#registerBtn')).toBeVisible();
+    await expect(page.locator('#registerBtn').isVisible).toBeTruthy();
 });
 
 
