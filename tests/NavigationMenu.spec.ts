@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 
+//Clicks on Forms and verifies the 3 sub-menu
 test('Navigation to Forms link', async ({ page }) => {
     const formsOption = ['Login', 'Register', 'Recover password'];
     await page.goto('https://qa-practice.netlify.app/bugs-form');
@@ -16,8 +17,9 @@ test('Navigation to Forms link', async ({ page }) => {
         }
 
     });
-
 });
+
+//Verifies the Contact Page
 test('Navigation to Contact link', async ({ page }) => {
     await page.goto('https://qa-practice.netlify.app/bugs-form');
     await page.getByText('Contact').click();

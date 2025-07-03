@@ -10,6 +10,7 @@ let email = 'test@abc.com';
 let password = 'abc1234';
 
 let spotBugsPage: SpotBugsPage;
+
 test.beforeEach(async ({ page }) => {
     spotBugsPage = new SpotBugsPage(page);
     await page.goto(currentURL);
@@ -38,8 +39,8 @@ test('First and Last name result validation', async ({ page }) => {
 
 //Checks validation message when last name is empty
 test('Last name validation on - empty field', async ({ page }) => {
+    await expect(page.locator('#lastName')).toBeEmpty();
     await page.getByPlaceholder('Enter phone number').fill(phoneNumber);
-    await page.locator('#emailAddress').fill(email);
     await page.locator('#password').fill(password);
     await page.getByRole('button', { name: 'Register' }).click();
     await expect(page.getByText('Last name is mandatory')).toBeVisible();
@@ -47,7 +48,6 @@ test('Last name validation on - empty field', async ({ page }) => {
 
 //Checks input value for phone number in result
 test('Phone number result validation', async ({ page }) => {
-    await page.locator('#lastName').fill(lastName);
     await page.getByPlaceholder('Enter phone number').fill(phoneNumber);
     await page.locator('#password').fill(password);
     await page.getByRole('button', { name: 'Register' }).click();
@@ -72,6 +72,7 @@ test('Phone number validation - on non-numeric input', async ({ page }) => {
 
 //Checks validation message when phone number is empty
 test('Phone number validation on - empty field', async ({ page }) => {
+    await expect(page.getByPlaceholder('Enter phone number')).toBeEmpty();
     await page.locator('#password').fill(password);
     await page.getByRole('button', { name: 'Register' }).click();
     await expect(page.locator('#message')).toHaveText('The phone number should contain at least 10 characters!');
@@ -105,6 +106,7 @@ test('Password validation - on more than 20 characters', async ({ page }) => {
 //Checks validation message when password is empty
 test('Password validation on - empty field', async ({ page }) => {
     await page.getByPlaceholder('Enter phone number').fill(phoneNumber);
+    await expect(page.locator('#password')).toBeEmpty();
     await page.getByRole('button', { name: 'Register' }).click();
     await expect(page.locator('#message')).toHaveText('The password should contain between [6,20] characters!');
 });
@@ -129,6 +131,7 @@ test('Email validation on - invalid format', async ({ page }) => {
 //Checks validation message when email is empty
 test('Email validation on - empty field', async ({ page }) => {
     await page.getByPlaceholder('Enter phone number').fill(phoneNumber);
+    await expect(page.locator('#emailAddress')).toBeEmpty();
     await page.locator('#password').fill(password);
     await page.getByRole('button', { name: 'Register' }).click();
     await expect(page.getByText('Email is mandatory')).toBeVisible();

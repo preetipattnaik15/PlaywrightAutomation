@@ -21,7 +21,6 @@ export class SpotBugsPage {
         this.register = page.getByRole('button', { name: 'Register' });
         this.successMessage = page.getByText('Successfully registered the following information');
     }
-
     async validInputs(firstName, lastName, phoneNumber, country, email, password) {
         await this.firstName.fill(firstName);
         await this.lastName.fill(lastName);
